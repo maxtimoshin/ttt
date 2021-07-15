@@ -1,0 +1,38 @@
+.board {
+  width: 500px;
+  height: 500px;
+  margin: 20px 0 0 20px;
+  background-color: #44425e;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  pointer-events: auto;
+  &:before {
+    position: absolute;
+    content: "";
+    width: 510px;
+    height: 160px;
+    right: -5px;
+    top: 160px;
+    border-top: 7px solid #a855c1;
+    border-bottom: 7px solid #a855c1;
+    pointer-events: none;
+  }
+  &:after {
+    position: absolute;
+    content: "";
+    width: 160px;
+    height: 510px;
+    left: 160px;
+    bottom: -5px;
+    border-left: 7px solid #a855c1;
+    border-right: 7px solid #a855c1;
+    pointer-events: none;
+  }
+}
+
+.row {
+  flex: 33%;
+  display: flex;
+  flex-direction: row;
+}
