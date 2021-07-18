@@ -3,18 +3,14 @@ import Board from '../board/board.component'
 import Info from '../info/info.component'
 import './game.styles.scss'
 import { Patterns } from '../../patterns'
+import Modal from '../modal/modal.component'
 
 const Game = () => {
- 
+    const [modal, setModal] = useState(true)
     const [person, setPerson] = useState('Player1')
     const [board, setBoard] = useState(Array(9).fill(''))
     const [player, setPlayer] = useState('X')
     const [result, setResult] = useState({ winner: 'none', state: 'none' })
-
-    useEffect(()=>{
-        setPerson(prompt('Укажите свое имя: '))
-    },[]
-    )
 
     useEffect(() => {
         checkWin()
@@ -71,10 +67,16 @@ const Game = () => {
         setPlayer('O')
     }
 
+    const setUserName = (value) => {
+        setPerson(value)
+        setModal(false)
+    }
+
     return (
         <div className='game-panel'>
             <Board board={board} playerTurn={playerTurn}/>
             <Info result={result} person={person}/>
+            <Modal modal={modal} setUserName={setUserName}/>
         </div>
     )
 }
