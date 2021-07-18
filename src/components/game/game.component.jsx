@@ -4,12 +4,14 @@ import Info from '../info/info.component'
 import './game.styles.scss'
 import { Patterns } from '../../patterns'
 import Modal from '../modal/modal.component'
+import ResultModal from '../result-modal/result-modal.component'
 
 const Game = () => {
     const [modal, setModal] = useState(true)
+    const [resultModal, setResultModal] = useState(false)
     const [person, setPerson] = useState('Player1')
     const [board, setBoard] = useState(Array(9).fill(''))
-    const [player, setPlayer] = useState('X')
+    const [player, setPlayer] = useState('O')
     const [result, setResult] = useState({ winner: 'none', state: 'none' })
 
     useEffect(() => {
@@ -20,6 +22,7 @@ const Game = () => {
 
     useEffect(() => {
         if (result.state != 'none') {
+            setResultModal(true)
             restartGame()
         }
     }, [result])
@@ -68,15 +71,20 @@ const Game = () => {
     }
 
     const setUserName = (value) => {
-        setPerson(value)
+        setPerson(value == null ? 'Player1' : value)
         setModal(false)
+    }
+
+    const closeResultWindow = () => {
+        setResultModal(false)
     }
 
     return (
         <div className='game-panel'>
-            <Board board={board} playerTurn={playerTurn}/>
-            <Info result={result} person={person}/>
-            <Modal modal={modal} setUserName={setUserName}/>
+            <Board board={board} playerTurn={playerTurn} />
+            <Info result={result} person={person} />
+            <Modal modal={modal} setUserName={setUserName} />
+            <ResultModal resultModal={resultModal} result={result} closeResultWindow={closeResultWindow}/>
         </div>
     )
 }
